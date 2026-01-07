@@ -13,9 +13,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Check for core files
-        run: |
-          ls -R
-          test -f index.html || (echo "index.html missing" && exit 1)
-          test -f styles.css || (echo "styles.css missing" && exit 1)
-          test -f game.js || (echo "game.js missing" && exit 1)
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run Playwright tests
+        run: npm test
+
+      - name: Upload Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30

@@ -1,0 +1,12 @@
+{
+  "name": "aim-trainer",
+  "version": "1.0.0",
+  "description": "Professional D3.js Aim Trainer",
+  "main": "game.js",
+  "scripts": {
+    "test": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.0"
+  }
+}
