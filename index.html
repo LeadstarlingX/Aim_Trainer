@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aim Trainer | D3.js Edition</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <div id="game-container">
+        <header>
+            <h1>Aim Trainer</h1>
+            <div id="ui-overlay">
+                <div class="stat-box">
+                    <span class="label">Score:</span>
+                    <span id="score">0</span>
+                </div>
+            </div>
+        </header>
+        <main id="canvas-wrapper">
+            <!-- D3 will render the SVG here -->
+            <svg id="game-canvas"></svg>
+        </main>
+        <footer>
+            <button id="start-btn">Start Session</button>
+        </footer>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>

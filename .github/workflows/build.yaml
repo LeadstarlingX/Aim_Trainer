@@ -1,0 +1,21 @@
+name: Build and Validate
+
+on:
+  push:
+    branches: [ master, development, 'feat/*' ]
+  pull_request:
+    branches: [ master, development ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check for core files
+        run: |
+          ls -R
+          test -f index.html || (echo "index.html missing" && exit 1)
+          test -f styles.css || (echo "styles.css missing" && exit 1)
+          test -f game.js || (echo "game.js missing" && exit 1)
