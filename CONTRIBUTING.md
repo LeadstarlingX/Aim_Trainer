@@ -16,13 +16,15 @@ First off, thank you for considering contributing to the Aim Trainer! It's peopl
 1. **Fork** the repository.
 2. Create a **feature branch** (`git checkout -b feat/amazing-feature`).
 3. **Commit** your changes following a clear convention (e.g., `feat: add awesome feature`).
-4. **Push** to the branch (`git push origin feat/amazing-feature`).
-5. Open a **Pull Request**.
+4. **Test** your changes locally by running `npm test`. **Passes are mandatory.**
+5. **Push** to the branch (`git push origin feat/amazing-feature`).
+6. Open a **Pull Request**.
 
 ## Technical Guidelines
-- This project uses **D3.js v7**. Ensure all animations and data-driven elements use D3 patterns.
-- Follow the **Dark Theme** design guidelines. Use the defined CSS variables in `styles.css`.
-- Keep the implementation **front-end only** (Vanilla JS/HTML/CSS).
+- **Automated Testing**: All new features or bug fixes **must** include corresponding tests. Run `npm test` to verify the entire suite passes before submitting a PR.
+- **D3.js Patterns**: This project uses **D3.js v7**. Ensure all animations and data-driven elements use D3 patterns.
+- **Design Consistency**: Follow the **Dark Theme** design guidelines. Use the defined CSS variables in `styles.css`.
+- **Pure Front-end**: Keep the implementation **front-end only** (Vanilla JS/HTML/CSS).
 
 ## Branching Strategy
 - `master`: Stable production code.
