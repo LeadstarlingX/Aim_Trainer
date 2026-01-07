@@ -35,6 +35,28 @@ The goal is to hit as many targets as possible within the session time while avo
     - Level Completion Rates
 - **Mobile Support**: Fully responsive touch controls for training on the go.
 
+## 🛠️ Dependencies
+
+This project is designed to be lightweight. Production dependencies are loaded via CDN, while development tools are managed via `npm`.
+
+### Production
+- **[D3.js v7](https://d3js.org/)**: Used for all SVG visualizations, force simulations, and animations. (Loaded via CDN in `index.html`)
+
+### Development & Testing
+- **[Node.js](https://nodejs.org/)**: Required for running the test suite and local development server.
+- **[Playwright](https://playwright.dev/)**: End-to-end testing framework used to verify game mechanics.
+- **[http-server](https://www.npmjs.com/package/http-server)**: A simple, zero-configuration command-line http server.
+
+### Installation
+To set up the development environment:
+```bash
+# Install development dependencies
+npm install
+
+# Install Playwright browsers
+npx playwright install --with-deps chromium
+```
+
 ## 🚀 Technical Stack
 - **D3.js v7**: Force simulations, transitions, and SVG rendering.
 - **Vanilla CSS**: Premium dark-mode aesthetics.
