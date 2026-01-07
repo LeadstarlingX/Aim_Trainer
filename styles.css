@@ -50,58 +50,164 @@ h1 {
     color: var(--accent-color);
 }
 
+h1#ui-overlay {
+    display: flex;
+    gap: 1.5rem;
+}
+
 .stat-box {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .label {
-    opacity: 0.7;
-    margin-right: 0.5rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.5;
+    margin-bottom: 2px;
+}
+
+/* Colors */
+.success-text {
+    color: var(--success-color);
+}
+
+.danger-text {
+    color: var(--danger-color);
+}
+
+.warning-text {
+    color: #d29922;
 }
 
 #canvas-wrapper {
     flex-grow: 1;
     position: relative;
     cursor: crosshair;
+    overflow: hidden;
 }
 
 #game-canvas {
     width: 100%;
     height: 100%;
+    z-index: 1;
 }
 
-footer {
-    padding: 1rem;
+/* Overlays */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(13, 17, 23, 0.85);
     display: flex;
     justify-content: center;
-    border-top: 1px solid #30363d;
+    align-items: center;
+    z-index: 10;
+    transition: opacity 0.3s;
 }
 
-#start-btn {
-    padding: 0.8rem 2rem;
+.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.settings-card {
+    background-color: var(--card-bg);
+    padding: 2.5rem;
+    border-radius: 12px;
+    border: 1px solid #30363d;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 400px;
+}
+
+.settings-card h2 {
+    margin-bottom: 2rem;
+    color: var(--accent-color);
+}
+
+.setting-item {
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: left;
+}
+
+.setting-item select {
+    padding: 0.8rem;
+    background-color: #0d1117;
+    color: white;
+    border: 1px solid #30363d;
+    border-radius: 6px;
     font-size: 1rem;
+}
+
+.primary-btn {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.1rem;
     font-weight: bold;
     background-color: var(--accent-color);
     color: white;
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    transition: transform 0.2s, background-color 0.2s;
+    transition: background-color 0.2s, transform 0.1s;
 }
 
-#start-btn:hover {
+.primary-btn:hover {
     background-color: #1f6feb;
-    transform: translateY(-2px);
 }
 
-#start-btn:active {
-    transform: translateY(0);
+.primary-btn:active {
+    transform: scale(0.98);
+}
+
+footer {
+    padding: 0.8rem;
+    display: flex;
+    justify-content: center;
+    border-top: 1px solid #30363d;
+}
+
+.footer-hint {
+    font-size: 0.9rem;
+    opacity: 0.6;
+}
+
+/* Feedback Animations */
+.feedback-label {
+    position: absolute;
+    pointer-events: none;
+    font-weight: bold;
+    font-size: 1.2rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    z-index: 5;
+    animation: floatUp 0.8s ease-out forwards;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-40px);
+        opacity: 0;
+    }
 }
 
 .dot {
     cursor: pointer;
-    transition: opacity 0.2s;
 }
 
 .dot:hover {

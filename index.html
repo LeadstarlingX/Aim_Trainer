@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,25 +8,72 @@
     <link rel="stylesheet" href="styles.css">
     <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
+
 <body>
     <div id="game-container">
         <header>
             <h1>Aim Trainer</h1>
             <div id="ui-overlay">
                 <div class="stat-box">
+                    <span class="label">Time:</span>
+                    <span id="timer">00:00</span>
+                </div>
+                <div class="stat-box">
                     <span class="label">Score:</span>
                     <span id="score">0</span>
+                </div>
+                <div class="stat-box">
+                    <span class="label">Hits:</span>
+                    <span id="hits" class="success-text">0</span>
+                </div>
+                <div class="stat-box">
+                    <span class="label">Miss:</span>
+                    <span id="misses" class="danger-text">0</span>
+                </div>
+                <div class="stat-box">
+                    <span class="label">Harm:</span>
+                    <span id="harms" class="warning-text">0</span>
                 </div>
             </div>
         </header>
         <main id="canvas-wrapper">
             <!-- D3 will render the SVG here -->
             <svg id="game-canvas"></svg>
+
+            <!-- Settings Modal -->
+            <div id="settings-overlay" class="overlay">
+                <div class="settings-card">
+                    <h2>Session Settings</h2>
+                    <div class="setting-item">
+                        <label for="duration-select">Duration (minutes):</label>
+                        <select id="duration-select">
+                            <option value="0.5">0.5</option>
+                            <option value="1" selected>1.0</option>
+                            <option value="2">2.0</option>
+                            <option value="3">3.0</option>
+                            <option value="5">5.0</option>
+                        </select>
+                    </div>
+                    <button id="start-btn" class="primary-btn">Start Session</button>
+                </div>
+            </div>
+
+            <!-- Game Over Modal -->
+            <div id="game-over-overlay" class="overlay hidden">
+                <div class="settings-card">
+                    <h2>Session Over</h2>
+                    <div id="final-stats">
+                        <!-- Stats injected by JS -->
+                    </div>
+                    <button id="restart-btn" class="primary-btn">Main Menu</button>
+                </div>
+            </div>
         </main>
         <footer>
-            <button id="start-btn">Start Session</button>
+            <div class="footer-hint">Click targets to score. Avoid red targets!</div>
         </footer>
     </div>
     <script src="game.js"></script>
 </body>
+
 </html>
