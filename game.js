@@ -10,8 +10,16 @@ const config = {
         bonus: ['#58a6ff', '#3fb950', '#d29922'],
         penalty: '#f85149' // Red
     },
-    penaltyChance: 0.2
+    penaltyChance: 0.2,
+    difficulty: {
+        beginner: { lifespan: 2500, spawnInterval: 1200 },
+        intermediate: { lifespan: 1800, spawnInterval: 1000 },
+        advanced: { lifespan: 1200, spawnInterval: 800 },
+        elite: { lifespan: 800, spawnInterval: 600 }
+    }
 };
+
+let currentDifficulty = 'intermediate';
 
 let gameState = {
     isActive: false,
@@ -35,6 +43,7 @@ const timerEl = d3.select("#timer");
 const settingsOverlay = d3.select("#settings-overlay");
 const gameOverOverlay = d3.select("#game-over-overlay");
 const durationSelect = d3.select("#duration-select");
+const difficultySelect = d3.select("#difficulty-select");
 
 let width, height;
 let spawnTimer, countdownTimer;
@@ -97,8 +106,26 @@ function spawnDot() {
     };
 
     gameState.dots.push(newDot);
+
+    // Set expiration timeout
+    const lifespan = config.difficulty[currentDifficulty].lifespan;
+    setTimeout(() => {
+        expireDot(newDot.id);
+    }, lifespan);
+
     updateSimulation();
     renderDots();
+}
+
+function expireDot(dotId) {
+    if (!gameState.isActive) return;
+
+    const dotIndex = gameState.dots.findIndex(d => d.id === dotId);
+    if (dotIndex !== -1) {
+        gameState.dots.splice(dotIndex, 1);
+        updateSimulation();
+        renderDots();
+    }
 }
 
 function updateSimulation() {
@@ -113,6 +140,7 @@ function renderDots() {
     circles.enter()
         .append("circle")
         .attr("class", "dot")
+        .attr("id", d => `dot-${d.id}`)
         .attr("r", 0)
         .attr("cx", d => d.x)
         .attr("cy", d => d.y)
@@ -169,6 +197,9 @@ function showFeedback(text, x, y, colorClass) {
 
 function startSession() {
     const duration = parseFloat(durationSelect.property("value"));
+    currentDifficulty = difficultySelect.property("value") || 'intermediate';
+    const profile = config.difficulty[currentDifficulty];
+
     gameState = {
         isActive: true,
         score: 0,
@@ -188,7 +219,7 @@ function startSession() {
     if (spawnTimer) clearInterval(spawnTimer);
     if (countdownTimer) clearInterval(countdownTimer);
 
-    spawnTimer = setInterval(spawnDot, config.spawnInterval);
+    spawnTimer = setInterval(spawnDot, profile.spawnInterval);
     countdownTimer = setInterval(updateTimer, 1000);
 }
 
