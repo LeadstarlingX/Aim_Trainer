@@ -168,4 +168,12 @@ function updateDimensions() {
 window.addEventListener('resize', updateDimensions);
 updateDimensions();
 refreshScoreboard();
-fsm.setState(GameState.IDLE);
+// --- Test Hooks ---
+if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    window.__TEST_HOOKS__ = {
+        fsm,
+        session,
+        stats,
+        GameState
+    };
+}

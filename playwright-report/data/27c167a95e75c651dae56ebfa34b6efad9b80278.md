@@ -1,0 +1,50 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - heading "Aim Trainer" [level=1] [ref=e4]
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - generic [ref=e7]: "Time:"
+        - generic [ref=e8]: 00:00
+      - generic [ref=e9]:
+        - generic [ref=e10]: "Score:"
+        - generic [ref=e11]: "0"
+      - generic [ref=e12]:
+        - generic [ref=e13]: "Hits:"
+        - generic [ref=e14]: "0"
+      - generic [ref=e15]:
+        - generic [ref=e16]: "Miss:"
+        - generic [ref=e17]: "0"
+      - generic [ref=e18]:
+        - generic [ref=e19]: "Harm:"
+        - generic [ref=e20]: "0"
+  - main [ref=e21]:
+    - img [ref=e22]
+    - generic [ref=e24]:
+      - heading "Session Settings" [level=2] [ref=e25]
+      - generic [ref=e26]:
+        - generic [ref=e27]: "Player Name:"
+        - textbox "Player Name:" [ref=e28]:
+          - /placeholder: Enter your name
+      - generic [ref=e29]:
+        - generic [ref=e30]: "Duration (minutes):"
+        - combobox "Duration (minutes):" [ref=e31]:
+          - option "0.5"
+          - option "1.0" [selected]
+          - option "2.0"
+          - option "3.0"
+          - option "5.0"
+      - generic [ref=e32]:
+        - generic [ref=e33]: "Difficulty Level:"
+        - combobox "Difficulty Level:" [ref=e34]:
+          - option "Beginner (Slow)"
+          - option "Intermediate"
+          - option "Advanced (Fast)"
+          - option "Elite (Reaction)" [selected]
+      - heading "Local Scoreboard" [level=3] [ref=e36]
+      - button "Start Session" [active] [ref=e37] [cursor=pointer]
+  - contentinfo [ref=e38]:
+    - generic [ref=e39]: Click targets to score. Avoid red targets!
+```
