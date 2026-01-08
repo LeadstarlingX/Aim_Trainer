@@ -79,6 +79,14 @@ events.on('spawnRequest', () => {
     const rect = document.getElementById('canvas-wrapper').getBoundingClientRect();
     const newDot = factory.createDot(rect.width, rect.height);
     gameDots.push(newDot);
+
+    // Set expiration
+    const diff = d3.select("#difficulty-select").property("value") || 'intermediate';
+    const profile = config.difficulty[diff];
+    setTimeout(() => {
+        expireDot(newDot.id);
+    }, profile.lifespan);
+
     dotEngine.updateSimulation(gameDots);
     dotEngine.renderDots(gameDots);
 });
