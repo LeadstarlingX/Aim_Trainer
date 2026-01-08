@@ -3,7 +3,8 @@ const { test, expect } = require('@playwright/test');
 test.describe('Aim Trainer Core Mechanics', () => {
     test.beforeEach(async ({ page }) => {
         await page.goto('/');
-        await page.waitForSelector('body[data-game-ready="true"]');
+        //await page.waitForSelector('body[data-game-ready="true"]');
+        await page.waitForSelector('#settings-overlay:not(.hidden)');
     });
 
     test('should load the game with settings overlay', async ({ page }) => {
