@@ -2,38 +2,35 @@
 
 Inspired by **Counter-Strike 2** aim maps and other professional training tools like **AimLabz**, this project is a high-performance, web-based aim trainer built entirely with **D3.js**.
 
+## 🎯 Game Features
+
+- **Immersive Fullscreen**: The game fills your entire browser viewport for a distraction-free training environment.
+- **Dynamic Difficulty**: 4 difficulty levels (Beginner, Intermediate, Advanced, Elite) that adjust target lifespan and spawn rates.
+- **D3 Force Simulation**: Targets use fluid, collision-aware movement patterns.
+- **Persistent Scoreboard**: Your top 5 sessions per difficulty are saved locally to your browser.
+- **Advanced Performance Analytics**:
+    - **Accuracy %**: Real-time precision tracking (Hits vs. Total Clicks).
+    - **Avg Reaction Time**: Measures speed in milliseconds (ms).
+- **Player Profiles**: Custom names for local progress tracking.
+
 ## 🎯 Game Rules
 
 The goal is to hit as many targets as possible within the session time while avoiding penalties.
 
 ### Target Types
-- **Bonus Dots (Vibrant Colors)**: Click these to earn **+10 points** and increment your **Hits**.
-- **Penalty Dots (Red)**: Avoid these! Clicking them results in **-15 points** and increments your **Harms** count.
-- **The Void (Background)**: Clicking anywhere else on the canvas counts as a **Miss**.
-
-### Stats Tracking
-- **Score**: Your total points (clamped to 0).
-- **Hits**: Successful target acquisitions.
-- **Miss**: Clicks that didn't hit any target.
-- **Harm**: Clicks on accidental/penalty targets.
+- **Bonus Dots (Vibrant Colors)**: Click these to earn **+10 points**.
+- **Penalty Dots (Red)**: Avoid these! Clicking them results in **-15 points**.
+- **Expiration**: Bonus dots vanish if not clicked within their lifespan. This doesn't count as a miss, but affects your potential score.
+- **The Void (Background)**: Clicking the background counts as a **Miss** and reduces your accuracy.
 
 ## ⚙️ Settings
-- **Session Duration**: Choose between **0.5, 1, 2, 3, or 5 minutes** per session.
-- **Dynamic Movement**: Targets use a D3 force simulation to move and collide, providing a fluid training experience.
+- **Session Duration**: Choose between **0.5, 1, 2, 3, or 5 minutes**.
+- **Difficulty Selection**: Switch profiles to increase target speed and reduce their time on screen.
 
 ## ✨ UPCOMING Features
-- **Levels of Difficulty**:
-    - **Easy**: Slow, predictable movement, larger dots.
-    - **Medium**: Faster movement, more randomness.
-    - **Hard**: Chaotic movement, smaller dots.
-    - **Crazy**: Extremely fast, highly randomized sizes.
-- **Player Profiles**: Register with a unique name to track your progress.
-- **Scoreboard**: Local persistence of top players per difficulty level.
-- **Advanced Dashboard**:
-    - Click Accuracy (%)
-    - Average Reaction Time (ms)
-    - Level Completion Rates
 - **Mobile Support**: Fully responsive touch controls for training on the go.
+- **Visual Charts**: Interactive D3 charts for historical progress analysis.
+- **Online Leaderboards**: Global competition using a light backend.
 
 ## 🛠️ Dependencies
 
@@ -59,8 +56,8 @@ npx playwright install --with-deps chromium
 
 ## 🚀 Technical Stack
 - **D3.js v7**: Force simulations, transitions, and SVG rendering.
-- **Vanilla CSS**: Premium dark-mode aesthetics.
-- **Local Storage**: (Upcoming) Persistence for player stats.
+- **Vanilla CSS**: Premium dark-mode aesthetics with horizontal UI layout.
+- **Local Storage**: Persistence for player stats and scoreboards.
 
 ---
 *Created for precision and performance.*
