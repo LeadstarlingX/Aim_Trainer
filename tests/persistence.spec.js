@@ -6,6 +6,7 @@ test.describe('Aim Trainer Iteration 4: Persistence & Profiles', () => {
         // Clear localStorage before each test to ensure a clean state
         await page.evaluate(() => localStorage.clear());
         await page.reload();
+        await page.waitForSelector('body[data-game-ready="true"]');
     });
 
     test('should have player name input and empty scoreboard on load', async ({ page }) => {
