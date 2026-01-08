@@ -25,7 +25,10 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
+
+      - name: Fix Playwright Binary Permissions
+        run: chmod +x ./node_modules/.bin/playwright || true
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps chromium
