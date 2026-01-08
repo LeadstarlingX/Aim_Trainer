@@ -45,6 +45,10 @@
                 <div class="settings-card">
                     <h2>Session Settings</h2>
                     <div class="setting-item">
+                        <label for="player-name">Player Name:</label>
+                        <input type="text" id="player-name" placeholder="Enter your name" maxlength="15">
+                    </div>
+                    <div class="setting-item">
                         <label for="duration-select">Duration (minutes):</label>
                         <select id="duration-select">
                             <option value="0.5">0.5</option>
@@ -62,6 +66,12 @@
                             <option value="advanced">Advanced (Fast)</option>
                             <option value="elite">Elite (Reaction)</option>
                         </select>
+                    </div>
+                    <div id="scoreboard-container">
+                        <h3>Local Scoreboard</h3>
+                        <div id="scoreboard-list">
+                            <!-- Scores injected by JS -->
+                        </div>
                     </div>
                     <button id="start-btn" class="primary-btn">Start Session</button>
                 </div>

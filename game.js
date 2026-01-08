@@ -29,7 +29,9 @@ let gameState = {
     harms: 0,
     timeLeft: 0, // in seconds
     dots: [],
-    nextId: 0
+    nextId: 0,
+    totalClicks: 0,
+    reactionTimes: []
 };
 
 const svg = d3.select("#game-canvas");
@@ -44,6 +46,8 @@ const settingsOverlay = d3.select("#settings-overlay");
 const gameOverOverlay = d3.select("#game-over-overlay");
 const durationSelect = d3.select("#duration-select");
 const difficultySelect = d3.select("#difficulty-select");
+const playerNameInput = d3.select("#player-name");
+const scoreboardList = d3.select("#scoreboard-list");
 
 let width, height;
 let spawnTimer, countdownTimer;
@@ -79,6 +83,8 @@ function ticked() {
 canvasWrapper.on("mousedown", (event) => {
     if (!gameState.isActive) return;
 
+    gameState.totalClicks++;
+
     // Check if we clicked the background or a dot
     if (event.target.id === "game-canvas" || event.target.tagName === "svg") {
         handleMiss(event);
@@ -102,7 +108,8 @@ function spawnDot() {
         y: Math.random() * (height - config.dotRadius * 2) + config.dotRadius,
         type: isPenalty ? 'penalty' : 'bonus',
         color: isPenalty ? config.colors.penalty : config.colors.bonus[Math.floor(Math.random() * config.colors.bonus.length)],
-        createdAt: Date.now()
+        createdAt: Date.now(),
+        spawnedAt: Date.now()
     };
 
     gameState.dots.push(newDot);
@@ -147,6 +154,7 @@ function renderDots() {
         .attr("fill", d => d.color)
         .on("mousedown", (event, d) => {
             event.stopPropagation();
+            gameState.totalClicks++;
             handleDotClick(event, d);
         })
         .transition()
@@ -166,6 +174,7 @@ function handleDotClick(event, clickedDot) {
     if (clickedDot.type === 'bonus') {
         gameState.hits++;
         gameState.score += 10;
+        gameState.reactionTimes.push(Date.now() - clickedDot.spawnedAt);
         hitsEl.text(gameState.hits);
         showFeedback("Hit!", event.clientX, event.clientY, "success-text");
     } else {
@@ -208,7 +217,9 @@ function startSession() {
         harms: 0,
         timeLeft: duration * 60,
         dots: [],
-        nextId: 0
+        nextId: 0,
+        totalClicks: 0,
+        reactionTimes: []
     };
 
     updateUI();
@@ -252,10 +263,26 @@ function endSession() {
 
     gameOverOverlay.classed("hidden", false);
 
+    const accuracy = gameState.totalClicks > 0 
+        ? ((gameState.hits / gameState.totalClicks) * 100).toFixed(1) 
+        : 0;
+    
+    const avgReaction = gameState.reactionTimes.length > 0
+        ? (gameState.reactionTimes.reduce((a, b) => a + b, 0) / gameState.reactionTimes.length).toFixed(0)
+        : 0;
+
+    const playerName = playerNameInput.property("value").trim() || "Anonymous";
+    saveScore(playerName, gameState.score, accuracy, avgReaction);
+    loadScoreboard();
+
     d3.select("#final-stats").html(`
         <div class="stat-box">
             <span class="label">Final Score</span>
             <span style="font-size: 2rem; color: var(--accent-color)">${gameState.score}</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
+            <div class="stat-box"><span class="label">Accuracy</span><span class="success-text">${accuracy}%</span></div>
+            <div class="stat-box"><span class="label">Avg Reaction</span><span class="accent-text">${avgReaction}ms</span></div>
         </div>
         <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-top: 1.5rem;">
             <div><span class="label">Hits</span><div>${gameState.hits}</div></div>
@@ -264,6 +291,68 @@ function endSession() {
         </div>
     `);
 }
+
+function saveScore(name, score, accuracy, reaction) {
+    const scores = JSON.parse(localStorage.getItem('aimTrainer_scores') || '[]');
+    scores.push({
+        name,
+        score,
+        accuracy,
+        reaction,
+        difficulty: currentDifficulty,
+        date: new Date().toLocaleDateString()
+    });
+    
+    // Keep top 5 for current difficulty
+    const filtered = scores
+        .filter(s => s.difficulty === currentDifficulty)
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 5);
+        
+    // Merge back with other difficulties
+    const others = scores.filter(s => s.difficulty !== currentDifficulty);
+    localStorage.setItem('aimTrainer_scores', JSON.stringify([...others, ...filtered]));
+}
+
+function loadScoreboard() {
+    const scores = JSON.parse(localStorage.getItem('aimTrainer_scores') || '[]');
+    const difficulty = difficultySelect.property("value") || 'intermediate';
+    
+    const filtered = scores
+        .filter(s => s.difficulty === difficulty)
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 5);
+
+    if (filtered.length === 0) {
+        scoreboardList.html('<div class="empty-scoreboard">No scores yet. Train hard!</div>');
+        return;
+    }
+
+    scoreboardList.html(`
+        <table class="scoreboard-table">
+            <thead>
+                <tr>
+                    <th>Player</th>
+                    <th>Score</th>
+                    <th>Acc%</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${filtered.map(s => `
+                    <tr>
+                        <td>${s.name}</td>
+                        <td>${s.score}</td>
+                        <td>${s.accuracy}%</td>
+                    </tr>
+                `).join('')}
+            </tbody>
+        </table>
+    `);
+}
+
+// Load scoreboard on startup and difficulty change
+loadScoreboard();
+difficultySelect.on("change", loadScoreboard);
 
 d3.select("#start-btn").on("click", startSession);
 d3.select("#restart-btn").on("click", () => {

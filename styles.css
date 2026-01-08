@@ -214,3 +214,64 @@ footer {
 .dot:hover {
     opacity: 0.8;
 }
+
+/* Profiles & Scoreboard */
+#player-name {
+    padding: 0.8rem;
+    background-color: #0d1117;
+    color: white;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    font-size: 1rem;
+    width: 100%;
+}
+
+#player-name:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+#scoreboard-container {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+#scoreboard-container h3 {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.7;
+    margin-bottom: 1rem;
+    color: var(--accent-color);
+}
+
+.scoreboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.scoreboard-table th {
+    text-align: left;
+    padding: 0.5rem;
+    border-bottom: 1px solid #30363d;
+    opacity: 0.6;
+    font-weight: 500;
+}
+
+.scoreboard-table td {
+    padding: 0.5rem;
+    border-bottom: 1px solid #21262d;
+}
+
+.empty-scoreboard {
+    padding: 1rem;
+    opacity: 0.4;
+    font-style: italic;
+    font-size: 0.85rem;
+}
+
+.accent-text {
+    color: var(--accent-color);
+}
