@@ -1,8 +1,9 @@
+let allPlayersData = [];
 async function loadDashboardData() {
     try {
         const response = await fetch('../data.json'); 
-        const data = await response.json();
-        renderTable(data);
+        allPlayersData = await response.json();
+        renderTable(allPlayersData);
     } catch (error) {
         console.error("Error loading data:", error);
     }
@@ -23,6 +24,17 @@ function renderTable(data) {
         `;
         tableBody.innerHTML += row;
     });
+}
+
+function sortData(property) {
+    const sortedData = [...allPlayersData].sort((a, b) => {
+        if (property === 'reactionTime') {
+            return a[property] - b[property]; 
+        } else {
+            return b[property] - a[property];
+        }
+    });
+    renderTable(sortedData);
 }
 
 loadDashboardData();
