@@ -1,7 +1,7 @@
 [
-  { "name": "zenab", "accuracy": 85, "reactionTime": 0.45, "difficulty": "Intermediate" },
-  { "name": "sema", "accuracy": 92, "reactionTime": 0.38, "difficulty": "Beginner" },
+  { "name": "zenab", "accuracy": 95, "reactionTime": 0.5, "difficulty": "Intermediate" },
+  { "name": "sema", "accuracy": 70, "reactionTime": 0.2, "difficulty": "Beginner" },
   { "name": "Layan", "accuracy": 78, "reactionTime": 0.52, "difficulty": "Expert" },
-  { "name": "Sami", "accuracy": 95, "reactionTime": 0.31, "difficulty": "Expert" },
+  { "name": "Sami", "accuracy": 98, "reactionTime": 0.8, "difficulty": "Expert" },
   { "name": "Huda", "accuracy": 88, "reactionTime": 0.40, "difficulty": "Intermediate" }
 ]
