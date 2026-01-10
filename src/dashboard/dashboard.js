@@ -37,4 +37,17 @@ function sortData(property) {
     renderTable(sortedData);
 }
 
+document.getElementById('levelFilter').addEventListener('change', function() {
+    const selectedLevel = this.value.toLowerCase();
+    
+    if (selectedLevel === 'all') {
+        renderTable(allPlayersData);
+    } else {
+        const filteredData = allPlayersData.filter(player => 
+            player.difficulty.toLowerCase() === selectedLevel
+        );
+        renderTable(filteredData);
+    }
+});
+
 loadDashboardData();
