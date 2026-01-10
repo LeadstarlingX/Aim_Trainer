@@ -1,4 +1,5 @@
 let allPlayersData = [];
+let filteredData = [];
 async function loadDashboardData() {
     try {
         const response = await fetch('../data.json'); 
@@ -27,27 +28,28 @@ function renderTable(data) {
 }
 
 function sortData(property) {
-    const sortedData = [...allPlayersData].sort((a, b) => {
+    const dataToSort = filteredData.length > 0 ? filteredData : allPlayersData;
+    
+    const sortedData = [...dataToSort].sort((a, b) => {
         if (property === 'reactionTime') {
             return a[property] - b[property]; 
         } else {
             return b[property] - a[property];
         }
     });
+    
+    filteredData = sortedData;
     renderTable(sortedData);
 }
 
 document.getElementById('levelFilter').addEventListener('change', function() {
     const selectedLevel = this.value.toLowerCase();
     
-    if (selectedLevel === 'all') {
-        renderTable(allPlayersData);
-    } else {
-        const filteredData = allPlayersData.filter(player => 
-            player.difficulty.toLowerCase() === selectedLevel
-        );
-        renderTable(filteredData);
-    }
+    filteredData = selectedLevel === 'all' 
+        ? allPlayersData 
+        : allPlayersData.filter(player => player.difficulty.toLowerCase() === selectedLevel);
+    
+    renderTable(filteredData);
 });
 
 loadDashboardData();
