@@ -14,12 +14,14 @@ test.describe('Aim Trainer Core Mechanics', () => {
     });
 
     test('should start the game with selected difficulty', async ({ page }) => {
+        await page.fill('#player-name', 'TestPlayer');
         await page.selectOption('#difficulty-select', 'elite');
         await page.click('#start-btn');
         await expect(page.locator('#settings-overlay')).toBeHidden();
     });
 
     test('should register misses on background click', async ({ page }) => {
+        await page.fill('#player-name', 'TestPlayer');
         await page.click('#start-btn');
         const canvas = page.locator('#game-canvas');
         const box = await canvas.boundingBox();
@@ -30,6 +32,7 @@ test.describe('Aim Trainer Core Mechanics', () => {
 
     test('should have dots disappear after lifespan', async ({ page }) => {
         // Select Elite (800ms lifespan)
+        await page.fill('#player-name', 'TestPlayer');
         await page.selectOption('#difficulty-select', 'elite');
         await page.click('#start-btn');
 
@@ -44,6 +47,7 @@ test.describe('Aim Trainer Core Mechanics', () => {
     });
 
     test('should spawn dots in the game canvas', async ({ page }) => {
+        await page.fill('#player-name', 'TestPlayer');
         await page.click('#start-btn');
         await page.waitForSelector('circle.dot', { timeout: 3000 });
         const dotCount = await page.locator('circle.dot').count();
@@ -51,6 +55,7 @@ test.describe('Aim Trainer Core Mechanics', () => {
     });
 
     test('should update stats when clicking a dot', async ({ page }) => {
+        await page.fill('#player-name', 'TestPlayer');
         await page.click('#start-btn');
         const dot = page.locator('circle.dot').first();
         await dot.waitFor({ state: 'visible', timeout: 3000 });
