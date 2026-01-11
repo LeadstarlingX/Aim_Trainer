@@ -23,6 +23,10 @@ The goal is to hit as many targets as possible within the session time while avo
 - **Expiration**: Bonus dots vanish if not clicked within their lifespan. This doesn't count as a miss, but affects your potential score.
 - **The Void (Background)**: Clicking the background counts as a **Miss** and reduces your accuracy.
 
+### Safety Features
+- **Mandatory Identification**: Players must enter a name (min 4 chars) to start, ensuring all scores are properly attributed.
+- **Emergency Exit**: An **Exit** button is available during the session to abort the game immediately without saving stats.
+
 ## ⚙️ Settings
 - **Session Duration**: Choose between **0.5, 1, 2, 3, or 5 minutes**.
 - **Difficulty Selection**: Switch profiles to increase target speed and reduce their time on screen.
@@ -57,7 +61,14 @@ npx playwright install --with-deps chromium
 ## 🚀 Technical Stack
 - **D3.js v7**: Force simulations, transitions, and SVG rendering.
 - **Vanilla CSS**: Premium dark-mode aesthetics with horizontal UI layout.
+- **Vanilla CSS**: Premium dark-mode aesthetics with horizontal UI layout.
 - **Local Storage**: Persistence for player stats and scoreboards.
+
+## 🏗️ Architecture & Patterns
+- **Coordinator Pattern**: `game.js` acts as the central hub, orchestrating communication between decoupled modules.
+- **Observer Pattern**: An event-driven architecture (`EventEmitter.js`) allowing components (Timer, logic, UI) to communicate without direct dependencies.
+- **Factory Pattern**: `DotFactory.js` encapsulates the complexity of creating game objects (dots) with varying properties (bonus/penalty, colors).
+- **State Machine**: A strict Finite State Machine (`GameStateManager.js`) manages transitions between Idle, Playing, and Game Over states to prevent logic errors.
 
 ---
 *Created for precision and performance.*
