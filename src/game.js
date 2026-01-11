@@ -53,9 +53,12 @@ events.on('stateChange', ({ from, to }) => {
         overlays.hideAll();
         startActualGame();
     } else if (to === GameState.IDLE) {
+        session.stop(); // Stop any active timers
         overlays.showSettings();
         refreshScoreboard();
+        d3.select("#exit-btn").style("display", "none");
     } else if (to === GameState.GAMEOVER) {
+        d3.select("#exit-btn").style("display", "none");
         const finalStats = stats.getStats();
         const name = d3.select("#player-name").property("value").trim() || "Anonymous";
         const diff = d3.select("#difficulty-select").property("value");
@@ -136,8 +139,8 @@ function formatTime(seconds) {
 }
 
 function refreshScoreboard() {
-    const diff = d3.select("#difficulty-select").property("value") || 'intermediate';
-    scoreboard.update(persistence.getScores(diff));
+    // Local scoreboard removed from UI, but function kept to avoid breakage if called
+    // We can clear it or just leave it empty.
 }
 
 function startActualGame() {
@@ -145,6 +148,8 @@ function startActualGame() {
     const duration = parseFloat(d3.select("#duration-select").property("value"));
     const diff = d3.select("#difficulty-select").property("value") || 'intermediate';
     const profile = config.difficulty[diff];
+
+    d3.select("#exit-btn").style("display", "block"); // Show exit button
 
     stats.reset();
     factory.reset();
@@ -157,7 +162,18 @@ function startActualGame() {
 
 // --- Listeners ---
 
-d3.select("#start-btn").on("click", () => fsm.setState(GameState.PLAYING));
+d3.select("#start-btn").on("click", () => {
+    const nameInput = d3.select("#player-name").property("value").trim();
+    if (nameInput.length < 4) {
+        alert("Please enter a name with at least 4 characters to play.");
+        return;
+    }
+    fsm.setState(GameState.PLAYING)
+});
+d3.select("#exit-btn").on("click", () => {
+    // Exit game: Go to IDLE, do not save score
+    fsm.setState(GameState.IDLE);
+});
 d3.select("#restart-btn").on("click", () => fsm.setState(GameState.IDLE));
 d3.select("#difficulty-select").on("change", refreshScoreboard);
 

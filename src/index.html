@@ -35,6 +35,8 @@
                     <span class="label">Harm:</span>
                     <span id="harms" class="warning-text">0</span>
                 </div>
+                <button id="exit-btn" class="secondary-btn"
+                    style="margin-left: 20px; padding: 5px 15px; display: none;">Exit</button>
             </div>
         </header>
         <main id="canvas-wrapper">
@@ -68,15 +70,13 @@
                             <option value="elite">Elite (Reaction)</option>
                         </select>
                     </div>
-                    <div id="scoreboard-container">
-                        <h3>Local Scoreboard</h3>
-                        <div id="scoreboard-list">
-                            <!-- Scores injected by JS -->
-                        </div>
+                    <div id="scoreboard-container" style="display: none;">
+                        <!-- Local Scoreboard Removed -->
                     </div>
                     <button id="start-btn" class="primary-btn">Start Session</button>
-                    <button type="button" onclick="window.location.href='dashboard/dashboard.html'" id="dashboard-btn" style="margin-top: 10px; background-color: #4a5568; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer; width: 100%;">
-                      View Dashboard
+                    <button type="button" onclick="window.location.href='dashboard/dashboard.html'" id="dashboard-btn"
+                        style="margin-top: 10px; background-color: #4a5568; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer; width: 100%;">
+                        View Dashboard
                     </button>
                 </div>
             </div>
