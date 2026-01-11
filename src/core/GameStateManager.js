@@ -21,7 +21,7 @@ export class GameStateManager {
         const oldState = this.currentState;
         this.currentState = newState;
 
-        console.log(`[FSM] State transition: ${oldState} -> ${newState}`);
+
         this.events.emit('stateChange', { from: oldState, to: newState });
     }
 

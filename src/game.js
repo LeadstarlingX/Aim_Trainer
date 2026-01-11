@@ -97,7 +97,7 @@ events.on('spawnRequest', () => {
 // --- Logic Helpers ---
 
 function handleDotClick(event, dot) {
-    console.log("[DEBUG] Dot clicked", dot.id);
+
     if (!fsm.isPlaying()) return;
 
     if (dot.type === 'bonus') {
@@ -144,7 +144,7 @@ function refreshScoreboard() {
 }
 
 function startActualGame() {
-    console.log("[DEBUG] Session starting...");
+
     const duration = parseFloat(d3.select("#duration-select").property("value"));
     const diff = d3.select("#difficulty-select").property("value") || 'intermediate';
     const profile = config.difficulty[diff];
@@ -180,11 +180,11 @@ d3.select("#difficulty-select").on("change", refreshScoreboard);
 d3.select("#canvas-wrapper").on("mousedown", (event) => {
     console.log("[DEBUG] Canvas mousedown on", event.target.tagName, event.target.id);
     if (!fsm.isPlaying()) {
-        console.log("[DEBUG] Miss ignored: Not in PLAYING state");
+
         return;
     }
     if (event.target.id === "game-canvas" || event.target.tagName === "svg") {
-        console.log("[DEBUG] Miss registered");
+
         stats.registerMiss();
         updateStatsUI();
         feedback.show("Miss", event.clientX, event.clientY, "danger-text");
