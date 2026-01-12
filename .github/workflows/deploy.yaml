@@ -36,17 +36,9 @@ jobs:
       - name: Run Playwright tests
         run: npx playwright test
 
-      - name: Upload test results
-        uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: test-results
-          path: playwright-report/
-          retention-days: 7
-
   # Only deploy if tests pass
   deploy:
-    needs: test 
+    needs: test
     runs-on: ubuntu-latest
     environment:
       name: github-pages
@@ -62,7 +54,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './src'
+          path: './src'  # Deploy from src folder
 
       - name: Deploy to GitHub Pages
         id: deployment
