@@ -23,7 +23,7 @@ function renderTable(data) {
                 <td>${player.difficulty}</td>
                 <td>${player.accuracy}%</td>
                 <td>${player.score}</td>
-                <td>${player.reaction}s</td>
+                <td>${(player.reaction / 1000).toFixed(2)}s</td>
             </tr>
         `;
         tableBody.innerHTML += row;
