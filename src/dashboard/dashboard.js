@@ -1,12 +1,14 @@
 let allPlayersData = [];
 let filteredData = [];
-async function loadDashboardData() {
+
+function loadDashboardData() {
     try {
-        const response = await fetch('../data.json'); 
-        allPlayersData = await response.json();
+        const storageKey = 'aimTrainer_scores';
+        const data = localStorage.getItem(storageKey);
+        allPlayersData = data ? JSON.parse(data) : [];
         renderTable(allPlayersData);
     } catch (error) {
-        console.error("Error loading data:", error);
+        console.error("Error loading data from storage:", error);
     }
 }
 
@@ -20,7 +22,8 @@ function renderTable(data) {
                 <td>${player.name}</td>
                 <td>${player.difficulty}</td>
                 <td>${player.accuracy}%</td>
-                <td>${player.reactionTime}s</td>
+                <td>${player.score}</td>
+                <td>${(player.reaction / 1000).toFixed(2)}s</td>
             </tr>
         `;
         tableBody.innerHTML += row;
@@ -39,7 +42,7 @@ function sortData(property, event) {
     const dataToSort = filteredData.length > 0 ? filteredData : allPlayersData;
     
     const sortedData = [...dataToSort].sort((a, b) => {
-        if (property === 'reactionTime') {
+        if (property === 'reaction') { 
             return a[property] - b[property]; 
         } else {
             return b[property] - a[property];
