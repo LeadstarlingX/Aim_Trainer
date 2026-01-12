@@ -104,3 +104,11 @@ tbody tr:hover {
 #levelFilter:hover {
     border-color: #2ecc71;
 }
+
+.active-sort {
+    background-color: #2ecc71 !important; 
+    box-shadow: 0 0 10px #2ecc71;
+    color: white;
+    border-color: #fff;
+}
+
