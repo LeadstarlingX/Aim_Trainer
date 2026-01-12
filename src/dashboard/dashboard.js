@@ -27,7 +27,15 @@ function renderTable(data) {
     });
 }
 
-function sortData(property) {
+function sortData(property, event) {
+    document.querySelectorAll('.sort-btn, button').forEach(btn => {
+        btn.classList.remove('active-sort');
+    });
+
+    if (event && event.currentTarget) {
+        event.currentTarget.classList.add('active-sort');
+    }
+
     const dataToSort = filteredData.length > 0 ? filteredData : allPlayersData;
     
     const sortedData = [...dataToSort].sort((a, b) => {
@@ -43,6 +51,7 @@ function sortData(property) {
 }
 
 document.getElementById('levelFilter').addEventListener('change', function() {
+    document.querySelectorAll('.sort-btn, button').forEach(btn => btn.classList.remove('active-sort'));
     const selectedLevel = this.value.toLowerCase();
     
     filteredData = selectedLevel === 'all' 
