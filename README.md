@@ -2,6 +2,10 @@
 
 Inspired by **Counter-Strike 2** aim maps and other professional training tools like **AimLabz**, this project is a high-performance, web-based aim trainer built entirely with **D3.js**.
 
+
+## Start Playing
+The games is accessible anytime via the link: https://leadstarlingx.github.io/Aim_Trainer/
+
 ## 🎯 Game Features
 
 - **Immersive Fullscreen**: The game fills your entire browser viewport for a distraction-free training environment.
